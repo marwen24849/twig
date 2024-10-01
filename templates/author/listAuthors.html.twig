@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Auteurs{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper {
+            margin: 2em auto;
+            max-width: 1000px;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+        }
+
+        .header {
+            margin-bottom: 2em;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .author-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .author-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .author-image {
+            flex-shrink: 0;
+            margin-right: 20px;
+        }
+
+        .author-image img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #007bff;
+        }
+
+        .author-info {
+            text-align: left;
+            flex-grow: 1;
+        }
+
+        .author-info h3 {
+            margin: 0;
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        .author-info p {
+            margin: 10px 0;
+            color: #666;
+            font-size: 1em;
+        }
+
+        .author-info p strong {
+            color: #007bff;
+        }
+
+        .author-details-link {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .author-details-link:hover {
+            background-color: #0056b3;
+        }
+
+        .author-count {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 1em;
+        }
+    </style>
+
+    <div class="example-wrapper">
+        <div class="header">
+            <h2>Liste des Auteurs</h2>
+            <p class="author-count"><strong>Nombre d'auteurs :</strong> {{ authorsCount }}</p>
+            <p class="author-count"><strong>Nombre total de livres :</strong> {{ totalBooks }}</p>
+        </div>
+
+        {% if authors is empty %}
+            <p>Aucun auteur n'est disponible.</p>
+        {% else %}
+            {% for auth in authors %}
+                <div class="author-card">
+                    <div class="author-image">
+                        <img src="{{ auth.picture }}" alt="{{ auth.username }}">
+                    </div>
+                    <div class="author-info">
+                        <h3>{{ auth.username | upper }}</h3>
+                        <p><strong>Email:</strong> {{ auth.email }}</p>
+                        <p><strong>Livres publiés:</strong> {{ auth.nb_books }}</p>
+                    </div>
+                    <a class="author-details-link" href="{{ path('author_details', {id: auth.id}) }}">Détails</a>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}
