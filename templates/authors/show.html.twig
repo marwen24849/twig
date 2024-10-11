@@ -1,0 +1,28 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de {{ author.username }}{% endblock %}
+
+{% block body %}
+    <style>
+        .author-details { max-width: 600px; margin: 2em auto; text-align: center; }
+        .author-image img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #007bff; }
+        .author-info { font-size: 1.2em; margin-top: 20px; }
+    </style>
+
+    <div class="author-details">
+        <div class="author-image">
+            <img src="{{ author.picture }}" alt="{{ author.username }}">
+        </div>
+        <div class="author-info">
+            <h2>{{ author.username | upper }}</h2>
+            <p><strong>Email:</strong> {{ author.email }}</p>
+            <p><strong>Livres publiés:</strong> {{ author.nb_books }}</p>
+        </div>
+    </div>
+    <a href="{{ path('app_authors_index') }}">back to list</a>
+
+    <a href="{{ path('app_authors_edit', {'id': author.id}) }}">edit</a>
+
+    {{ include('authors/_delete_form.html.twig') }}
+{% endblock %}

@@ -19,7 +19,7 @@ class AuthorController extends AbstractController
         );
     }
 
-    #[Route('/authors', name: 'list_authors')]
+    #[Route('/author', name: 'list_authors')]
     public function listAuthors(): Response
     {
         $totalBooks = array_sum(array_column($this->authors, 'nb_books'));

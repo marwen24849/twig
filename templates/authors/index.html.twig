@@ -1,0 +1,173 @@
+
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Auteurs{% endblock %}
+
+{% block body %}
+    <style>
+        /* Wrapper principal */
+        .example-wrapper {
+            margin: 2em auto;
+            max-width: 1000px;
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+        }
+
+        /* En-tête */
+        .header {
+            margin-bottom: 2em;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        /* Carte auteur */
+        .author-card {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Effet hover */
+        .author-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Image de l'auteur */
+        .author-image {
+            flex-shrink: 0;
+            margin-right: 20px;
+        }
+
+        .author-image img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #007bff;
+            transition: border-color 0.3s ease;
+        }
+
+        .author-image img:hover {
+            border-color: #0056b3;
+        }
+
+        /* Informations de l'auteur */
+        .author-info {
+            text-align: left;
+            flex-grow: 1;
+        }
+
+        .author-info h3 {
+            margin: 0;
+            font-size: 1.6em;
+            color: #333;
+            text-transform: uppercase;
+        }
+
+        .author-info p {
+            margin: 10px 0;
+            color: #777;
+            font-size: 1em;
+            font-weight: 400;
+        }
+
+        .author-info p strong {
+            color: #007bff;
+            font-weight: 500;
+        }
+
+        /* Lien de détails */
+        .author-details-link {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin-left: 10px;
+        }
+
+        .author-details-link:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        /* Lien d'édition */
+        .author-info a {
+            color: #007bff;
+            font-weight: bold;
+            margin-right: 20px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .author-info a:hover {
+            color: #0056b3;
+        }
+
+        /* Compteur d'auteurs */
+        .author-count {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 1em;
+        }
+
+        /* Lien pour créer un nouvel auteur */
+        a[href="{{ path('app_authors_new') }}"] {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        a[href="{{ path('app_authors_new') }}"]:hover {
+            background-color: #218838;
+        }
+    </style>
+
+
+    <div class="example-wrapper">
+
+
+        {% if authors is empty %}
+            <p>Aucun auteur n'est disponible.</p>
+        {% else %}
+            {% for author in authors %}
+                <div class="author-card">
+                    <div class="author-image">
+                        <img src="{{ author.picture }}" alt="{{ author.username }}">
+                    </div>
+                    <div class="author-info">
+                        <h3>{{ author.username | upper }}</h3>
+                        <p><strong>Email:</strong> {{ author.email }}</p>
+                        <p><strong>Livres publiés:</strong> {{ author.nb_books }}</p>
+                        <a href="{{ path('app_authors_edit', {'id': author.id}) }}">edit</a>
+                    </div>
+                    {{ include('authors/_delete_form.html.twig') }}
+                    <a class="author-details-link" href="{{ path('app_authors_show', {'id': author.id}) }}">Détails</a>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <a href="{{ path('app_authors_new') }}">Create new</a>
+{% endblock %}
