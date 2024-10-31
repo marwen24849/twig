@@ -5,14 +5,23 @@
 {% block body %}
     <h1>Livre index</h1>
 
-    <table class="table">
+    <!-- Formulaire de recherche par nom d'auteur -->
+    <form method="get" action="{{ path('app_livre_index1') }}">
+        <div class="form-group">
+            <label for="search_author">Rechercher par nom d'auteur :</label>
+            <input type="text" name="search_author" id="search_author" class="form-control" value="{{ app.request.get('search_author') }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Rechercher</button>
+    </form>
+
+    <table class="table mt-4">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Ref</th>
-                <th>Title</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Ref</th>
+            <th>Title</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for livre in livres %}

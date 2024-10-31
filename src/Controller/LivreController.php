@@ -15,6 +15,22 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/livre')]
 final class LivreController extends AbstractController
 {
+    #[Route(name: 'app_livre_index1', methods: ['GET'])]
+    public function index1(Request $request, LivreRepository $livreRepository): Response
+    {
+        $searchAuthor = $request->query->get('search_author', '');
+
+        // Si un nom d'auteur est entré, rechercher par celui-ci
+        if ($searchAuthor) {
+            $livres = $livreRepository->findByAuthorName($searchAuthor);
+        } else {
+            $livres = $livreRepository->findAll();
+        }
+
+        return $this->render('livre/index.html.twig', [
+            'livres' => $livres,
+        ]);
+    }
     #[Route(name: 'app_livre_index', methods: ['GET'])]
     public function index(LivreRepository $livreRepository): Response
     {

@@ -16,6 +16,19 @@ class LivreRepository extends ServiceEntityRepository
         parent::__construct($registry, Livre::class);
     }
 
+
+    // src/Repository/LivreRepository.php
+
+    public function findByAuthorName(string $authorName)
+    {
+        return $this->createQueryBuilder('l')
+            ->join('l.Author', 'a')
+            ->where('a.username LIKE :name')
+            ->setParameter('name', '%' . $authorName . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Livre[] Returns an array of Livre objects
     //     */

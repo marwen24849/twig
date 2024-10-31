@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Livre{% endblock %}
+{% block title %}New Produit{% endblock %}
 
 {% block body %}
     <style>
@@ -98,9 +98,9 @@
             margin-bottom: 30px;
         }
     </style>
-    <h1>Create new Livre</h1>
+    <h1>Create new Produit</h1>
 
-    {{ include('livre/_form.html.twig') }}
+    {{ include('produit/_form.html.twig') }}
 
-    <a href="{{ path(' ') }}">back to list</a>
+    <a href="{{ path('app_produit_index') }}">back to list</a>
 {% endblock %}
